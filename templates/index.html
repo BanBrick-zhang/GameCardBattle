@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二手游戏卡带价格对比</title>
+    <link rel="stylesheet" href="./static/style.css">
+</head>
+
+<body>
+<h1 class="page-title">🎮 二手游戏卡带价格对比</h1>
+
+<!-- 搜索栏 + 平台选择 -->
+<div class="search-bar">
+    <select id="gamePlatform" class="platform-select">
+        <option value="">请选择游戏平台</option>
+        <option value="NS">NS</option>
+        <option value="NS2">NS2</option>
+        <option value="PS4">PS4</option>
+        <option value="PS5">PS5</option>
+    </select>
+
+    <input type="text" class="search-input" id="searchInput" placeholder="🔍 输入游戏名搜索价格...">
+    <button class="search-btn" onclick="searchGames()">搜索</button>
+</div>
+
+<div class="compare-tool">
+    <div class="compare-title">👉 点击卡带选中，跨平台对比</div>
+    <div class="compare-row">
+        <button onclick="compareSelected()">开始对比</button>
+        <button onclick="clearSelected()">清空选择</button>
+    </div>
+</div>
+
+<div class="platform-container">
+    <div class="platform-card">
+        <h2 class="platform-title">老猎人电玩</h2>
+        <div class="page-info" id="pageInfo1"></div> <!-- 新增 -->
+        <div class="game-list" id="platform1"></div>
+        <div class="pagination">
+            <button class="page-btn" onclick="changePage(1, -1)">上页</button>
+            <button class="page-btn" onclick="changePage(1, 1)">下页</button>
+        </div>
+    </div>
+
+    <div class="platform-card">
+        <h2 class="platform-title">海螺电玩</h2>
+        <div class="page-info" id="pageInfo2"></div> <!-- 新增 -->
+        <div class="game-list" id="platform2"></div>
+        <div class="pagination">
+            <button class="page-btn" onclick="changePage(2, -1)">上页</button>
+            <button class="page-btn" onclick="changePage(2, 1)">下页</button>
+        </div>
+    </div>
+
+    <div class="platform-card">
+        <h2 class="platform-title">火枪手电玩</h2>
+        <div class="page-info" id="pageInfo3"></div> <!-- 新增 -->
+        <div class="game-list" id="platform3"></div>
+        <div class="pagination">
+            <button class="page-btn" onclick="changePage(3, -1)">上页</button>
+            <button class="page-btn" onclick="changePage(3, 1)">下页</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal">
+    <div class="modal">
+        <div class="modal-title">📊 价格对比结果</div>
+        <div id="compareResult"></div>
+        <button class="close-btn" onclick="closeModal()">关闭</button>
+    </div>
+</div>
+
+<!-- 加载中遮罩 -->
+<div id="loadingOverlay"
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:#fff; padding:20px 30px; border-radius:10px; font-size:16px; font-weight:bold;">
+        请稍后，正在查询中...
+    </div>
+</div>
+
+<script src="./static/script.js"></script>
+</body>
+
+</html>
+
+<script src="./static/script.js"></script>
+</body>
+
+</html>

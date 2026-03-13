@@ -1,0 +1,307 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 10px;
+    line-height: 1.4;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #222;
+    font-weight: bold;
+}
+
+/* 搜索栏居中 不占满整行 */
+.search-bar {
+    background: white;
+    border-radius: 10px;
+    padding: 8px 10px;
+    margin: 0 auto 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    max-width: 500px;
+}
+
+.platform-select {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    min-width: 110px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-btn {
+    padding: 8px 12px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.compare-tool {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.compare-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+.compare-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 13px;
+    background: #333;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #555;
+}
+
+.platform-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    min-width: 280px;
+}
+
+.platform-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.platform-title {
+    text-align: center;
+    font-size: 15px;
+    padding: 8px;
+    background-color: #eee;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.game-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 320px;
+    margin-bottom: 10px;
+}
+
+.game-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    transition: all 0.2s;
+    cursor: pointer;
+    user-select: none;
+}
+
+.game-item.selected {
+    background: #e3f2fd !important;
+    border: 1px solid #90caf9;
+    transform: scale(1.02);
+}
+
+.game-img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.game-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.game-name {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #222;
+    margin-bottom: 3px;
+}
+
+.game-price {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* 分页信息 */
+.page-info {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 4px;
+}
+
+.page-btn {
+    width: auto;
+    min-width: 50px;
+    padding: 4px 8px;
+    font-size: 11px;
+    background: #444;
+    border-radius: 6px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.compare-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.compare-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.compare-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.compare-platform {
+    font-weight: bold;
+    color: #333;
+    font-size: 13px;
+}
+
+.compare-name {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.compare-price {
+    font-weight: bold;
+    color: #000;
+    font-size: 13px;
+}
+
+.compare-diff {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.close-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    .platform-container {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
