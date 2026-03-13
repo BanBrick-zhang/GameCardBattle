@@ -2,9 +2,38 @@ import requests
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import time
+import os
 
 app = Flask(__name__)
 CORS(app)  # 允许跨域，前端直接调用
+
+IMAGE_DIR = "./static/images"
+os.makedirs(IMAGE_DIR, exist_ok=True)
+
+
+def clear_image_dir():
+    if os.path.exists(IMAGE_DIR):
+        for f in os.listdir(IMAGE_DIR):
+            try:
+                os.remove(os.path.join(IMAGE_DIR, f))
+            except:
+                pass
+
+
+def download_image(img_url, keyword, plat_num):
+    try:
+        filename = f"{keyword}_{plat_num}_{int(time.time() * 1000)}.jpg"
+        save_path = os.path.join(IMAGE_DIR, filename)
+
+        resp = requests.get(img_url, timeout=10, stream=True)
+        if resp.status_code == 200:
+            with open(save_path, 'wb') as f:
+                for chunk in resp.iter_content(1024):
+                    f.write(chunk)
+            return f"/static/images/{filename}"
+    except:
+        pass
+    return ""
 
 
 def hai_luo(card_type, game_name, uppage):
@@ -139,6 +168,7 @@ def huo_qiang_shou(card_type, game_name, uppage):
     card_list = []
     for page in range(1, uppage):
         params = {
+            # "Referer": "https://servicewechat.com/wx0f883cb942dd9691/626/page-frame.html",
             "timeSort": "",
             "pageSize": "10",
             "startPrice": "0",
@@ -158,11 +188,19 @@ def huo_qiang_shou(card_type, game_name, uppage):
                 data_list = data['data']['rows']
                 for data in data_list:
                     if card_type == 'NS':
-                        card = [data['productMainUrl'], card_type + " " + data['productName'],
-                                data['retailPrice'], '火枪手电玩']
+                        if data['productMainUrl'].lower().endswith(('.png', '.jpg')):
+                            card = [data['productMainUrl'], card_type + " " + data['productName'],
+                                    data['retailPrice'], '火枪手电玩']
+                        else:
+                            card = [data['productMainUrl'] + ".jpg", card_type + " " + data['productName'],
+                                    data['retailPrice'], '火枪手电玩']
                     else:
-                        card = [data['productMainUrl'], data['productName'],
-                                data['retailPrice'], '火枪手电玩']
+                        if data['productMainUrl'].lower().endswith(('.png', '.jpg')):
+                            card = [data['productMainUrl'], data['productName'],
+                                    data['retailPrice'], '火枪手电玩']
+                        else:
+                            card = [data['productMainUrl'] + ".jpg", data['productName'],
+                                    data['retailPrice'], '火枪手电玩']
                     card_list.append(card)
                 time.sleep(1)
             else:
@@ -206,15 +244,32 @@ def search_games():
         return jsonify({"code": 400, "msg": "参数错误", "data": [[], [], []]})
 
     try:
+        clear_image_dir()
+        time.sleep(0.1)
         # 三个函数全部执行完再返回
         data1 = to_dict(old_man(platform, keyword, 2))
         data2 = to_dict(hai_luo(platform, keyword, 2))
         data3 = to_dict(huo_qiang_shou(platform, keyword, 2))
         print([data1, data2, data3])
+
+        def process_images(items, plat_num):
+            res = []
+            for it in items:
+                url = it.get("img_url", "")
+                local_url = download_image(url, keyword, plat_num) if url else ""
+                res.append({
+                    **it,
+                    "img_url": local_url if local_url else "https://picsum.photos/44/44?gray"
+                })
+            return res
+
+        # data1_local = process_images(data1, 1)
+        # data2_local = process_images(data2, 2)
+        data3_local = process_images(data3, 3)
         return jsonify({
             "code": 200,
             "msg": "搜索成功",
-            "data": [data1, data2, data3]
+            "data": [data1, data2, data3_local]
         })
     except Exception as e:
         return jsonify({"code": 500, "msg": str(e), "data": [[], [], []]})
