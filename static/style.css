@@ -157,7 +157,9 @@ button:hover {
 .game-img {
     width: 44px;
     height: 44px;
-    object-fit: cover;
+    object-fit: contain; /* 🔥 核心：图片完整显示，不变形 */
+    object-position: center; /* 居中 */
+    background: #f5f5f5; /* 空白区域填温和背景色 */
     border-radius: 6px;
     flex-shrink: 0;
 }
@@ -251,8 +253,10 @@ button:hover {
 .compare-img {
     width: 40px;
     height: 40px;
+    object-fit: contain; /* 🔥 完整显示 */
+    object-position: center;
+    background: #f5f5f5;
     border-radius: 6px;
-    object-fit: cover;
     flex-shrink: 0;
 }
 
