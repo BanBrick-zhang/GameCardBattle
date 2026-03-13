@@ -2,7 +2,7 @@ const PAGE_SIZE = 6;
 const currentPage = [1, 1, 1];
 let selectedItems = [];
 let searchKeyword = '';
-const API_SEARCH = 'http://localhost:5000/api/search';
+const API_SEARCH = 'https://gamecardbattle.onrender.com/api/search';
 
 function showLoading() {
     document.getElementById('loadingOverlay').style.display = 'flex';
