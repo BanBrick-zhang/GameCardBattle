@@ -2,7 +2,7 @@ const PAGE_SIZE = 6;
 const currentPage = [1, 1, 1];
 let selectedItems = [];
 let searchKeyword = '';
-const API_SEARCH = 'https://gamecardbattle.onrender.com/api/search';
+const API_SEARCH = 'http://localhost:5000/api/search';
 
 function showLoading() {
     document.getElementById('loadingOverlay').style.display = 'flex';
@@ -32,8 +32,8 @@ async function searchGames() {
 
         const res = await fetch(API_SEARCH, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ keyword: searchKeyword, platform: platform })
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({keyword: searchKeyword, platform: platform})
         });
 
         const result = await res.json();
@@ -105,7 +105,8 @@ function renderPlatform(platformIndex) {
                  data-price="${Number(item.price)}" 
                  data-platform="${item.platform}"
                  data-img="${item.img_url}">
-                <img src="${item.img_url}" alt="${item.name}" class="game-img" onerror="this.src='https://picsum.photos/44/44?gray'">
+                <img src="${item.img_url}" alt="${item.name}" class="game-img">
+<!--                <img src="${item.img_url}" alt="${item.name}" class="game-img" onerror="this.src='https://picsum.photos/44/44?gray'">-->
                 <div class="game-info">
                     <div class="game-name" title="${item.name}">${item.name}</div>
                     <div class="game-price">¥ ${Number(item.price).toFixed(0)}</div>
