@@ -1,4 +1,4 @@
-const PAGE_SIZE = 8;
+const PAGE_SIZE = 6;
 const currentPage = [1, 1, 1];
 let selectedItems = [];
 let searchKeyword = '';
@@ -105,7 +105,9 @@ function renderPlatform(platformIndex) {
                  data-price="${Number(item.price)}" 
                  data-platform="${item.platform}"
                  data-img="${item.img_url}">
-                <img src="${item.img_url}" alt="${item.name}" class="game-img" onclick="openZoom('${item.img_url}')" onerror="this.src='https://picsum.photos/44/44?gray'">
+                <img src="${item.img_url}" alt="${item.name}" class="game-img" 
+                     onclick="openZoom('${item.img_url}')" 
+                     onerror="this.src='https://picsum.photos/44/44?gray'">
                 <div class="game-info">
                     <div class="game-name" title="${item.name}">${item.name}</div>
                     <div class="game-price">¥ ${Number(item.price).toFixed(0)}</div>
