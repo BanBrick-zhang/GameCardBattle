@@ -77,10 +77,18 @@
 <div id="loadingOverlay"
      style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
     <div style="background:#fff; padding:20px 30px; border-radius:10px; font-size:16px; font-weight:bold;">
-        请稍后，正在查询中...
+        请稍后，正在查询中，加载图片较为缓慢请耐心等待...
     </div>
 </div>
 
+<!-- 图片放大弹窗 -->
+<div id="imgZoomOverlay" onclick="closeZoom()">
+    <img id="zoomImg" src="">
+</div>
+
+<div class="footer-copyright">
+    © 2026 游戏价格查询工具（低调使用）
+</div>
 <script src="../static/script.js"></script>
 </body>
 
