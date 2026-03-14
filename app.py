@@ -261,6 +261,7 @@ def search_games():
                     **it,
                     "img_url": local_url if local_url else "https://picsum.photos/44/44?gray"
                 })
+                time.sleep(0.5)
             return res
 
         # data1_local = process_images(data1, 1)
