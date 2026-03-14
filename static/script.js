@@ -1,4 +1,4 @@
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 8;
 const currentPage = [1, 1, 1];
 let selectedItems = [];
 let searchKeyword = '';
