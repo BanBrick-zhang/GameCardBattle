@@ -165,6 +165,10 @@ def huo_qiang_shou(card_type, game_name, uppage):
         ask_type = 260
     card_list = []
     base_url = "https://api.huoqiangshou.cn/seller/category/getProductInfoPage"
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "terminal": "WECHAT",
+    }
     card_list = []
     for page in range(1, uppage):
         params = {
@@ -181,7 +185,14 @@ def huo_qiang_shou(card_type, game_name, uppage):
             "productName": str(game_name)
         }
         try:
-            response = requests.get(base_url, params=params, timeout=10)
+            # response = requests.get(base_url, params=params, timeout=10)
+            response = requests.post(
+                url=base_url,
+                data=params,  # 自动将字典转为JSON字符串
+                headers=headers,
+                timeout=10  # 设置超时时间，避免无限等待
+            )
+            print(response)
             response.raise_for_status()  # 若状态码非200，抛出HTTPError异常
             data = response.json()
             if data['data']['rows'] != []:
@@ -189,17 +200,17 @@ def huo_qiang_shou(card_type, game_name, uppage):
                 for data in data_list:
                     if card_type == 'NS':
                         if data['productMainUrl'].lower().endswith(('.png', '.jpg')):
-                            card = [data['productMainUrl'], card_type + " " + data['productName'],
+                            card = [data['productMainUrl'], data['id'], card_type + " " + data['productName'], data['categoryName'],
                                     data['retailPrice'], '火枪手电玩']
                         else:
-                            card = [data['productMainUrl'] + ".jpg", card_type + " " + data['productName'],
+                            card = [data['productMainUrl'] + ".jpg", data['id'], card_type + " " + data['productName'], data['categoryName'],
                                     data['retailPrice'], '火枪手电玩']
                     else:
                         if data['productMainUrl'].lower().endswith(('.png', '.jpg')):
-                            card = [data['productMainUrl'], data['productName'],
+                            card = [data['productMainUrl'], data['id'], data['productName'], data['categoryName'],
                                     data['retailPrice'], '火枪手电玩']
                         else:
-                            card = [data['productMainUrl'] + ".jpg", data['productName'],
+                            card = [data['productMainUrl'] + ".jpg", data['id'], data['productName'], data['categoryName'],
                                     data['retailPrice'], '火枪手电玩']
                     card_list.append(card)
                 time.sleep(1)
