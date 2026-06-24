@@ -56,7 +56,7 @@ def search_games():
 
         # data1_local = process_images(data1, 1)
         # data2_local = process_images(data2, 2)
-        # data3_local = process_images(data3, 3)
+        data3_local = process_images(data3, 3)
         return jsonify({
             "code": 200,
             "msg": "搜索成功",
