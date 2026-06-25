@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>二手游戏卡带价格查询</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <base target="_blank">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <base target="_blank">
+    <base target="_blank">
+</head>
+
+<body>
+    <!-- ========== 顶部标题栏 ========== -->
+    <header class="app-header">
+        <h1 class="app-title">🎮 游戏卡带比价</h1>
+    </header>
+
+    <!-- ========== 主内容区 ========== -->
+    <main class="app-main">
+        <!-- 模块1：老猎人电玩 -->
+        <section class="tab-content" id="tab-laolieren">
+            <div class="platform-header">
+                <span class="platform-icon">💁</span>
+                <span class="platform-name">老猎人电玩</span>
+            </div>
+            <!-- 平台搜索栏：选择器+搜索框+搜索按钮 同一行 -->
+            <div class="platform-search-bar">
+                <select id="filterPlatform1" class="filter-select platform-search-select"
+                    onchange="loadPlatformData(0)">
+                    <option value="NS">Switch</option>
+                    <option value="NS2">Switch 2</option>
+                    <option value="PS4">PS4</option>
+                    <option value="PS5">PS5</option>
+                </select>
+                <input type="text" class="platform-search-input" id="platformSearchInput1" placeholder="🔍 搜索游戏名...">
+                <button class="platform-search-btn" onclick="searchPlatformGames(0)">搜索</button>
+            </div>
+            <div class="page-info" id="pageInfo1"></div>
+            <div class="game-list" id="platform1"></div>
+            <div class="pagination">
+                <button class="page-btn" onclick="changePage(1, -1)">上一页</button>
+                <button class="page-btn" onclick="changePage(1, 1)">下一页</button>
+            </div>
+        </section>
+
+        <!-- 模块2：海螺电玩 -->
+        <section class="tab-content" id="tab-hailuo">
+            <div class="platform-header">
+                <span class="platform-icon">🐚</span>
+                <span class="platform-name">海螺电玩</span>
+            </div>
+            <!-- 平台搜索栏：选择器+搜索框+搜索按钮 同一行 -->
+            <div class="platform-search-bar">
+                <select id="filterPlatform2" class="filter-select platform-search-select"
+                    onchange="loadPlatformData(1)">
+                    <option value="NS">Switch</option>
+                    <option value="NS2">Switch 2</option>
+                    <option value="PS4">PS4</option>
+                    <option value="PS5">PS5</option>
+                </select>
+                <input type="text" class="platform-search-input" id="platformSearchInput2" placeholder="🔍 搜索游戏名...">
+                <button class="platform-search-btn" onclick="searchPlatformGames(1)">搜索</button>
+            </div>
+            <div class="page-info" id="pageInfo2"></div>
+            <div class="game-list" id="platform2"></div>
+            <div class="pagination">
+                <button class="page-btn" onclick="changePage(2, -1)">上一页</button>
+                <button class="page-btn" onclick="changePage(2, 1)">下一页</button>
+            </div>
+        </section>
+
+        <!-- 模块3：火枪手电玩 -->
+        <section class="tab-content" id="tab-huoqiangshou">
+            <div class="platform-header">
+                <span class="platform-icon">🔫</span>
+                <span class="platform-name">火枪手电玩</span>
+            </div>
+            <!-- 平台搜索栏：选择器+搜索框+搜索按钮 同一行 -->
+            <div class="platform-search-bar">
+                <select id="filterPlatform3" class="filter-select platform-search-select"
+                    onchange="loadPlatformData(2)">
+                    <option value="NS">Switch</option>
+                    <option value="NS2">Switch 2</option>
+                    <option value="PS4">PS4</option>
+                    <option value="PS5">PS5</option>
+                </select>
+                <input type="text" class="platform-search-input" id="platformSearchInput3" placeholder="🔍 搜索游戏名...">
+                <button class="platform-search-btn" onclick="searchPlatformGames(2)">搜索</button>
+            </div>
+            <div class="page-info" id="pageInfo3"></div>
+            <div class="game-list" id="platform3"></div>
+            <div class="pagination">
+                <button class="page-btn" onclick="changePage(3, -1)">上一页</button>
+                <button class="page-btn" onclick="changePage(3, 1)">下一页</button>
+            </div>
+        </section>
+
+        <!-- 模块4：对比 -->
+        <section class="tab-content active" id="tab-compare">
+            <div class="compare-sticky-header">
+                <!-- 搜索栏 -->
+                <div class="search-bar">
+                    <select id="gamePlatform" class="platform-select">
+                        <option value="">选择平台</option>
+                        <option value="NS">NS</option>
+                        <option value="NS2">NS2</option>
+                        <option value="PS4">PS4</option>
+                        <option value="PS5">PS5</option>
+                    </select>
+                    <input type="text" class="search-input" id="searchInput" placeholder="🔍 输入游戏名...">
+                    <button class="search-btn" onclick="searchGames()">搜索</button>
+                </div>
+
+                <!-- 对比工具栏 -->
+                <div class="compare-tool">
+                    <div class="compare-hint">👉 点击卡带选中，跨平台对比</div>
+                    <div class="compare-row">
+                        <button onclick="compareSelected()">开始对比</button>
+                        <button onclick="clearSelected()">清空选择</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 三平台并列展示 -->
+            <div class="compare-container">
+                <div class="compare-card">
+                    <h3 class="compare-card-title">💁 老猎人</h3>
+                    <div class="page-info" id="pageInfoCompare1"></div>
+                    <div class="game-list" id="platformCompare1"></div>
+                    <div class="pagination">
+                        <button class="page-btn" onclick="changeComparePage(1, -1)">上页</button>
+                        <button class="page-btn" onclick="changeComparePage(1, 1)">下页</button>
+                    </div>
+                </div>
+
+                <div class="compare-card">
+                    <h3 class="compare-card-title">🐚 海螺</h3>
+                    <div class="page-info" id="pageInfoCompare2"></div>
+                    <div class="game-list" id="platformCompare2"></div>
+                    <div class="pagination">
+                        <button class="page-btn" onclick="changeComparePage(2, -1)">上页</button>
+                        <button class="page-btn" onclick="changeComparePage(2, 1)">下页</button>
+                    </div>
+                </div>
+
+                <div class="compare-card">
+                    <h3 class="compare-card-title">🔫 火枪手</h3>
+                    <div class="page-info" id="pageInfoCompare3"></div>
+                    <div class="game-list" id="platformCompare3"></div>
+                    <div class="pagination">
+                        <button class="page-btn" onclick="changeComparePage(3, -1)">上页</button>
+                        <button class="page-btn" onclick="changeComparePage(3, 1)">下页</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========== 底部Tab导航 ========== -->
+    <nav class="app-tabbar">
+        <div class="tab-item" data-tab="laolieren" onclick="switchTab('laolieren', event)">
+            <span class="tab-icon">💁</span>
+            <span class="tab-label">老猎人</span>
+        </div>
+        <div class="tab-item" data-tab="hailuo" onclick="switchTab('hailuo', event)">
+            <span class="tab-icon">🐚</span>
+            <span class="tab-label">海螺</span>
+        </div>
+        <div class="tab-item" data-tab="huoqiangshou" onclick="switchTab('huoqiangshou', event)">
+            <span class="tab-icon">🔫</span>
+            <span class="tab-label">火枪手</span>
+        </div>
+        <div class="tab-item active" data-tab="compare" onclick="switchTab('compare', event)">
+            <span class="tab-icon">📊</span>
+            <span class="tab-label">对比</span>
+        </div>
+    </nav>
+
+    <!-- ========== 对比弹窗 ========== -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-title">📊 价格对比结果</div>
+            <div id="compareResult"></div>
+            <button class="close-btn" onclick="closeModal()">关闭</button>
+        </div>
+    </div>
+
+    <!-- ========== 加载中遮罩 ========== -->
+    <div id="loadingOverlay">
+        <div class="loading-box">正在查询中，加载图片较为缓慢请耐心等待...</div>
+    </div>
+
+
+    <!-- ========== 游戏详情页面 ========== -->
+    <section class="detail-page" id="detailPage">
+        <div class="detail-header">
+            <button class="detail-back-btn" onclick="closeDetail()">← 返回</button>
+            <span class="detail-title">游戏详情</span>
+        </div>
+        <div class="detail-content" id="detailContent">
+            <!-- 动态填充 -->
+        </div>
+    </section>
+
+    <!-- 详情页面遮罩（用于点击返回） -->
+    <div class="detail-backdrop" id="detailBackdrop" onclick="closeDetail()"></div>
+
+    <!-- ========== 图片放大弹窗 ========== -->
+    <div id="imgZoomOverlay" onclick="closeZoom()">
+        <img id="zoomImg" src="" alt="">
+    </div>
+
+    <script src="../static/script.js"></script>
+</body>
+
+</html>
