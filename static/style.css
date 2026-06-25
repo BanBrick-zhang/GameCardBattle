@@ -1,0 +1,1109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ========== APP 框架 ========== */
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: #1a1a2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.app-title {
+    font-size: 17px;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.app-main {
+    position: fixed;
+    top: 48px;
+    left: 0;
+    right: 0;
+    bottom: 56px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #f5f5f5;
+}
+
+.app-tabbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #e8e8e8;
+    z-index: 100;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 4px 0;
+}
+
+.tab-item.active .tab-icon,
+.tab-item.active .tab-label {
+    color: #1a1a2e;
+    font-weight: 600;
+}
+
+.tab-item.active {
+    position: relative;
+}
+
+.tab-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 3px;
+    background: #1a1a2e;
+    border-radius: 2px 2px 0 0;
+}
+
+.tab-icon {
+    font-size: 20px;
+    margin-bottom: 2px;
+    color: #999;
+}
+
+.tab-label {
+    font-size: 11px;
+    color: #999;
+}
+
+/* ========== Tab 内容切换 ========== */
+.tab-content {
+    display: none;
+    padding: 12px;
+    min-height: 100%;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ========== 单平台模块头部 ========== */
+.platform-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.platform-icon {
+    font-size: 24px;
+}
+
+.platform-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+}
+
+.platform-filter {
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.filter-select {
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    background: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+    min-width: 140px;
+    text-align: center;
+}
+
+/* ========== 对比模块头部 ========== */
+.compare-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.compare-icon {
+    font-size: 22px;
+}
+
+.compare-title-main {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+}
+
+/* ========== 搜索栏 ========== */
+.search-bar {
+    background: white;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.platform-select {
+    padding: 10px 8px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    min-width: 90px;
+    flex-shrink: 0;
+    background: white;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 24px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px 8px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    min-width: 0;
+    -webkit-appearance: none;
+}
+
+.search-btn {
+    padding: 10px 14px;
+    background: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    flex-shrink: 0;
+    cursor: pointer;
+    touch-action: manipulation;
+    font-weight: 500;
+}
+
+.search-btn:active {
+    opacity: 0.8;
+}
+
+/* ========== 对比工具栏 ========== */
+.compare-tool {
+    background: white;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.compare-hint {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.compare-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    font-size: 13px;
+    background: #1a1a2e;
+    color: white;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: opacity 0.15s;
+    font-weight: 500;
+}
+
+button:active {
+    opacity: 0.8;
+}
+
+/* ========== 对比页三平台容器 ========== */
+.compare-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.compare-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.compare-card-title {
+    text-align: center;
+    font-size: 13px;
+    padding: 6px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+/* ========== 游戏列表通用 ========== */
+.page-info {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.game-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.game-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    transition: all 0.2s;
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+    touch-action: manipulation;
+}
+
+.game-item.selected {
+    background: #e3f2fd !important;
+    border: 1.5px solid #90caf9;
+    transform: scale(1.01);
+}
+
+.game-item:active {
+    background: #f0f0f0;
+}
+
+.game-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    object-position: center;
+    background: #f5f5f5;
+    border-radius: 8px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.game-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.game-name {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.game-price {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* ========== 分页 ========== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 4px;
+}
+
+.page-btn {
+    min-width: 52px;
+    padding: 6px 8px;
+    font-size: 12px;
+    background: #444;
+    border-radius: 8px;
+}
+
+/* ========== 对比弹窗 ========== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: 16px;
+}
+
+.modal {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    max-height: 80vh;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.modal-title {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #222;
+}
+
+.compare-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.compare-img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    object-position: center;
+    background: #f5f5f5;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.compare-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.compare-platform {
+    font-weight: 600;
+    color: #333;
+    font-size: 13px;
+}
+
+.compare-name {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #555;
+}
+
+.compare-price {
+    font-weight: bold;
+    color: #000;
+    font-size: 14px;
+}
+
+.compare-diff {
+    background: #f5f5f5;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.close-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 10px;
+    background: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    touch-action: manipulation;
+}
+
+.close-btn:active {
+    opacity: 0.8;
+}
+
+/* ========== 加载遮罩 ========== */
+#loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.loading-box {
+    background: #fff;
+    padding: 20px 28px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.5;
+    max-width: 280px;
+    color: #333;
+}
+
+/* ========== 图片放大 ========== */
+#imgZoomOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    cursor: pointer;
+    padding: 16px;
+}
+
+#imgZoomOverlay img {
+    max-width: 90%;
+    max-height: 85%;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    object-fit: contain;
+}
+
+/* ============================================
+   🔥 手机移动端适配 (< 768px)
+   ============================================ */
+@media (max-width: 767px) {
+    .compare-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .compare-card {
+        padding: 10px;
+    }
+
+    .game-item {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .game-img {
+        width: 44px;
+        height: 44px;
+    }
+
+    .game-name {
+        font-size: 12px;
+    }
+
+    .game-price {
+        font-size: 13px;
+    }
+
+    .search-bar {
+        padding: 8px 10px;
+        gap: 6px;
+    }
+
+    .platform-select {
+        min-width: 80px;
+        padding: 8px 6px;
+        font-size: 13px;
+    }
+
+    .search-input {
+        padding: 8px 6px;
+        font-size: 13px;
+    }
+
+    .search-btn {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    button {
+        padding: 7px 12px;
+        font-size: 12px;
+    }
+
+    .modal {
+        max-width: 100%;
+        border-radius: 14px;
+        padding: 14px;
+    }
+
+    .modal-title {
+        font-size: 16px;
+    }
+
+    .compare-item {
+        font-size: 13px;
+    }
+
+    .compare-diff {
+        font-size: 13px;
+    }
+
+    .close-btn {
+        padding: 8px;
+    }
+}
+
+/* ============================================
+   🔥 平板适配 (768px ~ 1024px)
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .compare-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .compare-card {
+        padding: 10px;
+    }
+
+    .game-img {
+        width: 44px;
+        height: 44px;
+    }
+
+    .game-name {
+        font-size: 12px;
+    }
+
+    .game-price {
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   🔥 桌面端适配 (> 1024px)
+   ============================================ */
+@media (min-width: 1025px) {
+    .compare-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    .compare-card {
+        padding: 14px;
+    }
+
+    .game-img {
+        width: 52px;
+        height: 52px;
+    }
+}
+
+/* ============================================
+   🔥 安全区域适配 (iPhone 刘海屏等)
+   ============================================ */
+@supports (padding: max(0px)) {
+    .app-header {
+        padding-top: max(0px, env(safe-area-inset-top));
+        height: max(48px, calc(48px + env(safe-area-inset-top)));
+    }
+
+    .app-main {
+        top: max(48px, calc(48px + env(safe-area-inset-top)));
+        bottom: max(56px, calc(56px + env(safe-area-inset-bottom)));
+    }
+
+    .app-tabbar {
+        padding-bottom: max(0px, env(safe-area-inset-bottom));
+        height: max(56px, calc(56px + env(safe-area-inset-bottom)));
+    }
+}
+
+
+/* ========== 选择圆点按钮 ========== */
+.select-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    background: #fff;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-left: 4px;
+}
+
+.select-dot.selected {
+    border-color: #1a1a2e;
+    background: #1a1a2e;
+}
+
+.select-dot.selected::after {
+    content: '✓';
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* 对比模式下的游戏项布局调整 */
+.game-item.compare-mode {
+    position: relative;
+}
+
+.game-item.compare-mode .game-img {
+    cursor: pointer;
+}
+
+.game-item.compare-mode .game-info {
+    cursor: default;
+}
+
+/* ========== 详情页面 ========== */
+.detail-page {
+    display: none;
+    position: fixed;
+    top: 48px;
+    left: 0;
+    right: 0;
+    bottom: 56px;
+    background: #f5f5f5;
+    z-index: 150;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.detail-page.active {
+    display: block;
+}
+
+/* 详情页面遮罩 */
+.detail-backdrop {
+    display: none;
+    position: fixed;
+    top: 48px;
+    left: 0;
+    right: 0;
+    bottom: 56px;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 140;
+}
+
+.detail-backdrop.active {
+    display: block;
+}
+
+.detail-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: #1a1a2e;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    z-index: 10;
+    gap: 12px;
+}
+
+.detail-back-btn {
+    background: transparent;
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.detail-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    flex: 1;
+    text-align: center;
+    margin-right: 60px;
+}
+
+.detail-content {
+    padding: 12px;
+    padding-bottom: 80px;
+}
+
+/* 详情页封面 */
+.detail-cover-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.detail-cover-img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.detail-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.detail-price-tag {
+    font-size: 24px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+/* 详情信息卡片 */
+.detail-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 12px;
+}
+
+.detail-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-info-row {
+    display: flex;
+    padding: 6px 0;
+    font-size: 13px;
+}
+
+.detail-info-label {
+    color: #666;
+    min-width: 70px;
+    flex-shrink: 0;
+}
+
+.detail-info-value {
+    color: #222;
+    flex: 1;
+}
+
+/* 历史价格 */
+.detail-history-chart {
+    width: 100%;
+    height: 200px;
+    margin-top: 8px;
+}
+
+.history-price-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.history-price-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.history-price-date {
+    color: #666;
+}
+
+.history-price-value {
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+/* 相册 */
+.detail-album {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.detail-album-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+/* SKU列表 */
+.detail-sku-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-sku-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.detail-sku-title {
+    color: #222;
+}
+
+.detail-sku-price {
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+/* 详细介绍 */
+.detail-description {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #444;
+}
+
+.detail-description img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 8px 0;
+}
+
+.detail-description p {
+    margin: 6px 0;
+}
+
+
+/* ========== 对比模块 Sticky 头部 ========== */
+.compare-sticky-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: #f5f5f5;
+    padding-bottom: 4px;
+}
+
+/* 对比模块内的搜索栏和工具栏不需要额外边距 */
+.compare-sticky-header .search-bar {
+    margin-bottom: 10px;
+}
+
+.compare-sticky-header .compare-tool {
+    margin-bottom: 0;
+}
+
+/* ========== 详情页历史价格折线图 ========== */
+.detail-chart-container {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+/* ========== 对比弹窗历史价格折线图 ========== */
+.compare-chart-section {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #eee;
+}
+
+.compare-chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.compare-chart-container {
+    width: 100%;
+    height: 220px;
+    position: relative;
+}
+
+/* 对比弹窗增大高度以容纳图表 */
+.modal {
+    max-height: 90vh;
+}
+
+/* ========== 平台搜索栏（一行布局） ========== */
+.platform-search-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    align-items: center;
+}
+
+.platform-search-select {
+    padding: 10px 24px 10px 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    background: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    min-width: 90px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.platform-search-input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    min-width: 0;
+    -webkit-appearance: none;
+    background: #fff;
+}
+
+.platform-search-btn {
+    padding: 10px 18px;
+    background: #1a1a2e;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    touch-action: manipulation;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.platform-search-btn:active {
+    opacity: 0.8;
+}
+
+/* 移动端适配 */
+@media (max-width: 767px) {
+    .platform-search-bar {
+        gap: 6px;
+    }
+
+    .platform-search-select {
+        padding: 8px 20px 8px 8px;
+        font-size: 13px;
+        min-width: 75px;
+    }
+
+    .platform-search-input {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    .platform-search-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
